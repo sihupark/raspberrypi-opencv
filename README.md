@@ -1,4 +1,4 @@
-# raspberrypi-opencv
+# raspberrypi-opencv camera
 ## 1. 기존 OpenCV 버전 제거
 
 아래처럼 보이면 Opencv 이전 버전이 설치가 않되어 있는 상태이다.
