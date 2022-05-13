@@ -274,3 +274,70 @@ cap.open(-1)
 ~$ ./videocapture_basic
 ```
 
+python 3에서 opencv라이브러리를 사용가능한지는 확인한다.
+OpenCv버전이 출력되어야 한다.
+```
+pi@raspberrypi:~/opencv/opencv-4.5.1/build $ python3
+Python 3.9.2 (default, Mar 12 2021, 04:06:34)
+[GCC 10.2.1 20210110] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import cv2
+>>> cv2.__version__
+'4.5.1'
+>>> quit()
+```
+
+예제 코드를 실행한다. 웹캠 영상을 볼수있다.
+```
+$ python3 /usr/local/share/opencv4/samples/python/video.py
+```
+C++때와 같이 에러가 나지만 영상은 보인다.
+```
+[ WARN:0] global /home/pi/opencv/opencv-4.5.1/modules/videoio/src/cap_gstreamer.cpp (935) open OpenCV | GStreamer warning: Cannot query video position: status=0, value=-1, duration=-1
+```
+
+직접 예제를 작성하면 코드가 더 간단해지지만 Opencv에서 있는 것으로 진행한다.(수정)
+```
+$ cp /usr/local/share/opencv4/samples/python/video.py .
+$ cp /usr/local/share/opencv4/samples/python/tst_scene_render.py .
+$ cp /usr/local/share/opencv4/samples/python/common.py .
+$ chmod +w video.py
+```
+
+video.py파일을 열어서
+```
+~$ nano video.py
+```
+
+188번째 줄을 당므처럼 수정한다. Ctrl+O로 저장한 후, Ctrl+X로 종류한다.
+```
+  cap=cv.VideoCapture(source, cv.CAP_V4L2)
+```
+
+경고문 없이 영상이 바로 보인다.
+```
+~$ python video.py
+~$ python3 video.py
+```
+끄는 방법은 Ctrl+c
+
+이제 필요 없어진 컴파일에 사용했던 opencv소스코드 디렉토리를 삭제한다.
+```
+pi@raspberrypi:~/opencv/opencv-4.5.1/build $ cd
+pi@raspberrypi:~ $ rm -rf opencv
+```
+다시 키는 법
+```
+mkdir opencv
+cd opencv
+cd opencv-4.5.1
+mkdir build
+cd build
+```
+끄는 법
+```
+cd
+rm -rf opencv
+```
+
+끝
