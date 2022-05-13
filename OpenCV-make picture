@@ -1,0 +1,27 @@
+# 사진 만들기
+thonny에서 OpenCV의 Mat 자료형 외에도 numpy array를 통해서 영상의 픽셀별 제어가 가능하다. imread함수를 통해 반환되는 
+img는 numpy의 array타입이며 array의 원소, 즉 픽셀을 제어하기 위해서는 itemset을 사용할 수 있다.
+```
+Example42.py
+
+import numpy as np
+import cv2 as cv
+
+img = cv.imread('image.png')
+
+height = img.shape[0]
+width = img.shape[1]
+
+for y in range(0, height):
+    img.itemset(y, int(width /2), 0, 0)
+    img.itemset(y, int(width /2), 1, 0)
+    img.itemset(y, int(width /2), 2, 255)
+for x in range(0, width):
+    img.itemset(int(height /2), x, 0, 255)
+    img.itemset(int(height /2), x, 1, 0)
+    img.itemset(int(height /2), x, 2, 0)
+
+cv.imshow('win', img)
+
+cv.waitKey(0)
+```
